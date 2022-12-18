@@ -25,6 +25,7 @@ export default function Navigation() {
         dispatch(logout());
       }
     });
+   return sub;
   }, [auth]);
   return (
     <NavigationContainer>

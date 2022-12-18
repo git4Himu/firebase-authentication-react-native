@@ -33,17 +33,23 @@ export default function ProductAddEditScreen({
   const dispatch = useAppDispatch();
   const saveDate = useCallback(
     async (product: ProductModel) => {
-      if (route.params) {
-        await dispatch(updateProductReducer(route.params.id!, product));
+      try{
+        if (route.params) {
+          
+          await dispatch(updateProductReducer(route.params.id!, product));
+          toaster.show({
+            description: "Update successful"
+          })
+          return;
+        }
+       await dispatch(addProductReducer(product));
         toaster.show({
-          description: "Update successful"
+          description: "Add successful"
         })
-        return;
+      } catch(err:any){
+        toaster.show({ description: err.message });
       }
-     await dispatch(addProductReducer(product));
-      toaster.show({
-        description: "Add successful"
-      })
+     
     },
     [dispatch]
   );
